@@ -9,23 +9,17 @@ public class LibraryRoomReservation {
     private Long libraryReservationID;
 
     @ManyToOne
-    @JoinColumn(name = "roomID", nullable = false)
+    @JoinColumn(name = "libraryRoomID", nullable = false)
     private LibraryRoom libraryRoom;
 
-    private Long userID;
+    @ManyToOne
+    @JoinColumn(name = "UserID", nullable = false)
+    private User user;
+
     private String startTime;
     private String endTime;
     private String reservationStatus;
 
-    // Getters and setters
-
-    public void setLibraryRoom(LibraryRoom libraryRoom) {
-        this.libraryRoom = libraryRoom;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
 
     public void setReservationStatus(String reservationStatus) {
         this.reservationStatus = reservationStatus;
@@ -55,14 +49,14 @@ public class LibraryRoomReservation {
         return startTime;
     }
 
-    public Long getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
     public LibraryRoom getLibraryRoom() {
         return libraryRoom;
     }
-    // Constructors, if necessary
+
 }
 
 

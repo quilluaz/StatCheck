@@ -9,5 +9,4 @@ public class JiSsusApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JiSsusApplication.class, args);
 	}
-
 }

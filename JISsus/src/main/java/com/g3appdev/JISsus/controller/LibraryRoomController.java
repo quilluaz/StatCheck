@@ -22,7 +22,7 @@ public class LibraryRoomController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LibraryRoom> getRoomById(@PathVariable Long id) {
+    public ResponseEntity<LibraryRoom> getRoomById(@PathVariable int id) {
         Optional<LibraryRoom> room = roomService.getRoomById(id);
         return room.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -34,13 +34,13 @@ public class LibraryRoomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LibraryRoom> updateRoom(@PathVariable Long id,
+    public ResponseEntity<LibraryRoom> updateRoom(@PathVariable int id,
                                                   @RequestBody LibraryRoom roomDetails) {
         return ResponseEntity.ok(roomService.updateRoom(id, roomDetails));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRoom(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteRoom(@PathVariable int id) {
         roomService.deleteRoom(id);
         return ResponseEntity.noContent().build();
     }

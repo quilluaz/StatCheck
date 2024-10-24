@@ -30,11 +30,11 @@ public class LibraryRoomReservationService {
         LibraryRoomReservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
-        reservation.setUserID(reservationDetails.getUserID());
+//        reservation.setUserID(reservationDetails.getUserID());
         reservation.setStartTime(reservationDetails.getStartTime());
         reservation.setEndTime(reservationDetails.getEndTime());
         reservation.setReservationStatus(reservationDetails.getReservationStatus());
-        reservation.setLibraryRoom(reservationDetails.getLibraryRoom());
+
 
         return reservationRepository.save(reservation);
     }

@@ -1,23 +1,24 @@
 package com.g3appdev.JISsus.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class LibraryRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long libraryRoomID;
+    private int libraryRoomID;
 
     private String roomName;
-    private String availableTimeSlots;
+    @ElementCollection
+    private List<String> availableTimeSlots;
     private String bookingStatus;
+    @OneToMany(mappedBy = "libraryRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LibraryRoomReservation> reservations;
 
-    // Getters and setters
 
-    public Long getLibraryRoomID() {
+    public int getLibraryRoomID() {
         return libraryRoomID;
     }
 
@@ -25,7 +26,7 @@ public class LibraryRoom {
         return bookingStatus;
     }
 
-    public String getAvailableTimeSlots() {
+    public List<String>  getAvailableTimeSlots() {
         return availableTimeSlots;
     }
 
@@ -37,12 +38,11 @@ public class LibraryRoom {
         this.bookingStatus = bookingStatus;
     }
 
-    public void setAvailableTimeSlots(String availableTimeSlots) {
+    public void setAvailableTimeSlots(List<String> availableTimeSlots) {
         this.availableTimeSlots = availableTimeSlots;
     }
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
-    // Constructors, if necessary
 }

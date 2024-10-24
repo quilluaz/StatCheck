@@ -18,7 +18,7 @@ public class LibraryRoomService {
         return roomRepository.findAll();
     }
 
-    public Optional<LibraryRoom> getRoomById(Long id) {
+    public Optional<LibraryRoom> getRoomById(int id) {
         return roomRepository.findById(id);
     }
 
@@ -26,7 +26,7 @@ public class LibraryRoomService {
         return roomRepository.save(room);
     }
 
-    public LibraryRoom updateRoom(Long id, LibraryRoom roomDetails) {
+    public LibraryRoom updateRoom(int id, LibraryRoom roomDetails) {
         LibraryRoom room = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room not found"));
 
@@ -37,7 +37,7 @@ public class LibraryRoomService {
         return roomRepository.save(room);
     }
 
-    public void deleteRoom(Long id) {
+    public void deleteRoom(int id) {
         roomRepository.deleteById(id);
     }
 }
