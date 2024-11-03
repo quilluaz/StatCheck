@@ -33,6 +33,12 @@ public class RoomController {
         return roomService.saveRoom(room);
     }
 
+    @PutMapping("/{id}")
+    public RoomEntity updateRoom(@PathVariable Long id, @RequestBody RoomEntity room) {
+        room.setRoomID(id);
+        return roomService.saveRoom(room);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteRoom(@PathVariable Long id) {
         roomService.deleteRoom(id);

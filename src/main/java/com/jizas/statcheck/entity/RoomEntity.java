@@ -1,6 +1,6 @@
 package com.jizas.statcheck.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,7 +17,7 @@ public class RoomEntity {
 
     @ManyToOne
     @JoinColumn(name = "bldgID")
-    @JsonBackReference
+    @JsonIgnoreProperties("roomEntities")
     private BuildingEntity building;
 
     // Default constructor

@@ -1,6 +1,6 @@
 package com.jizas.statcheck.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class BuildingEntity {
     private String bldgName;
 
     @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIgnoreProperties("building")
     private List<RoomEntity> roomEntities;
 
     public BuildingEntity() {
@@ -36,11 +36,11 @@ public class BuildingEntity {
         this.bldgName = bldgName;
     }
 
-    public List<RoomEntity> getRooms() {
+    public List<RoomEntity> getRoomEntities() {
         return roomEntities;
     }
 
-    public void setRooms(List<RoomEntity> roomEntities) {
+    public void setRoomEntities(List<RoomEntity> roomEntities) {  // Changed from setRooms
         this.roomEntities = roomEntities;
     }
 }
