@@ -23,4 +23,8 @@ public class BuildingService {
     public BuildingEntity saveBuilding(BuildingEntity building) {
         return buildingRepository.save(building);
     }
+
+    public void deleteBuilding(Long id) {
+        buildingRepository.deleteById(id);
+    }
 }

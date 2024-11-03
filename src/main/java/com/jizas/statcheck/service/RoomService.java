@@ -27,4 +27,8 @@ public class RoomService {
     public List<RoomEntity> getRoomsByBuilding(Long buildingId) {
         return roomRepository.findByBuilding_BldgID(buildingId);
     }
+
+    public void deleteRoom(Long id) {
+        roomRepository.deleteById(id);
+    }
 }

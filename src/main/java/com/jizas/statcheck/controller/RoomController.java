@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rooms")
+@CrossOrigin(origins = "http://localhost:3000")
 public class RoomController {
     @Autowired
     private RoomService roomService;
@@ -30,5 +31,10 @@ public class RoomController {
     @PostMapping
     public RoomEntity createRoom(@RequestBody RoomEntity room) {
         return roomService.saveRoom(room);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRoom(@PathVariable Long id) {
+        roomService.deleteRoom(id);
     }
 }
