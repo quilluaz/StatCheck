@@ -21,6 +21,12 @@ public class BuildingService {
     }
 
     public BuildingEntity saveBuilding(BuildingEntity building) {
+        if (building.getBldgID() != null) {
+            BuildingEntity existingBuilding = buildingRepository.findById(building.getBldgID())
+                    .orElseThrow(() -> new RuntimeException("Building not found"));
+            existingBuilding.setBldgName(building.getBldgName());
+            return buildingRepository.save(existingBuilding);
+        }
         return buildingRepository.save(building);
     }
 

@@ -12,7 +12,7 @@ public class BuildingEntity {
 
     private String bldgName;
 
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "building")
     @JsonIgnoreProperties("building")
     private List<RoomEntity> roomEntities;
 
@@ -40,7 +40,7 @@ public class BuildingEntity {
         return roomEntities;
     }
 
-    public void setRoomEntities(List<RoomEntity> roomEntities) {  // Changed from setRooms
+    public void setRoomEntities(List<RoomEntity> roomEntities) {
         this.roomEntities = roomEntities;
     }
 }
