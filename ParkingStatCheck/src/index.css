@@ -1,0 +1,21 @@
+/* src/index.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0; /* Light background color */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full height of the viewport */
+}
+
+#root {
+  background-color: white; /* White background for the app */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Space inside the box */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 90%; /* Width of the app */
+  max-width: 600px; /* Max width to limit size */
+}
