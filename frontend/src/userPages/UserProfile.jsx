@@ -8,7 +8,7 @@ import {
   fetchCurrentUserProfile,
   updateUserProfile,
   changePassword,
-} from "../services/UserAPI/UserProfileApi";
+} from "../services/UserAPI/UserProfileAPI";
 import { useAuth } from "../contexts/AuthContext";
 
 function UserProfile() {
