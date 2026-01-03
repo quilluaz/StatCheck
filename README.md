@@ -1,6 +1,28 @@
-# StatCheck - Parking Reservation System
+# StatCheck - Campus Facility Management System
 
-StatCheck is a comprehensive Parking Reservation System built with a robust Spring Boot backend and a modern React frontend. It allows users to reserve parking spots, manage reservations, and provides an administrative interface for managing the parking facility.
+StatCheck is a comprehensive Campus Facility Management System built with a robust Spring Boot backend and a modern React frontend. It goes beyond simple parking management to handle library reservations, academic scheduling, and facility analytics, providing a unified platform for campus resources.
+
+## 🚀 Features
+
+### 🅿️ Parking Management
+- **Smart Slot Reservation**: Real-time checking and booking of available parking spots.
+- **Lot Management**: Administration of parking lots and specific spaces.
+
+### 📚 Library Services
+- **Room Booking**: Reserve specific library rooms for study or meetings.
+- **Resource Management**: Track and manage library rooms and assets.
+
+### 📅 Academic Scheduling
+- **Subject Management**: Manage academic subjects and courses.
+- **Room Schedules**: View and manage schedules for various campus rooms.
+- **Conflict Detection**: Prevent double-booking of rooms.
+
+### 📊 Analytics Dashboard
+- **Usage Insights**: specific analytics on room usage rates and peak hours.
+- **Data-Driven Decisions**: Help administrators optimize facility allocation.
+
+### 🏢 Building Management
+- **Campus Integration**: Detailed information and management for specific buildings (GLE, NGE, RTL).
 
 ## 🚀 Technology Stack
 
@@ -103,4 +125,4 @@ StatCheck/
 
 ## 🔒 Security
 
- The application uses JWT for authentication. Refresh tokens are stored in HTTP-Only cookies for enhanced security.
+The application uses JWT for authentication. Refresh tokens are stored in HTTP-Only cookies for enhanced security.
