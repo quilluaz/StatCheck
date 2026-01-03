@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_URL } from "../apiConfig";
 
 const api = axios.create({
-  baseURL: `${API_URL}/api`,
+  baseURL: `${API_URL}/api/buildings/user`,
   withCredentials: true,  // Important for cookies
   headers: {
     "Content-Type": "application/json",
