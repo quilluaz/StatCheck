@@ -117,8 +117,13 @@ public class UserController {
                     .body(Map.of("error", "Invalid credentials"));
         } catch (Exception e) {
             logger.error("Login failed", e);
+            // DEBUG: Return specific exception info
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "Authentication failed"));
+                    .body(Map.of(
+                        "error", "Authentication failed", 
+                        "exception", e.getClass().getName(),
+                        "message", e.getMessage()
+                    ));
         }
     }
 
