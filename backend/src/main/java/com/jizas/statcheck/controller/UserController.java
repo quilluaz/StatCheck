@@ -7,8 +7,11 @@ import com.jizas.statcheck.entity.UserEntity;
 import com.jizas.statcheck.service.UserService;
 import com.jizas.statcheck.util.JwtUtil;
 import com.jizas.statcheck.util.CookieUtil;
+import com.jizas.statcheck.service.CloudinaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,13 +39,18 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;
+    private final CloudinaryService cloudinaryService;
+
+    @Value("${cookie.secure}")
+    private boolean cookieSecure;
 
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil, CookieUtil cookieUtil) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil, CookieUtil cookieUtil, CloudinaryService cloudinaryService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @PostMapping("/api/auth/login")
@@ -77,7 +85,7 @@ public class UserController {
                 // Create cookies
                 ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", accessToken)
                     .httpOnly(true)
-                    .secure(false)  // Set to false for development
+                    .secure(cookieSecure)
                     .path("/")
                     .maxAge(jwtUtil.getExpirationTime() / 1000)
                     .sameSite("Lax")
@@ -85,7 +93,7 @@ public class UserController {
 
                 ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
                     .httpOnly(true)
-                    .secure(false)  // Set to false for development
+                    .secure(cookieSecure)
                     .path("/")
                     .maxAge(jwtUtil.getRefreshExpirationTime() / 1000)
                     .sameSite("Lax")
@@ -320,6 +328,32 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/api/auth/user-profiles/{userId}/profile-picture")
+    public ResponseEntity<?> uploadProfilePicture(
+            @PathVariable Long userId,
+            @RequestParam("file") MultipartFile file,
+            Authentication authentication
+    ) {
+        try {
+            String email = authentication.getName();
+            UserEntity currentUser = userService.findByEmail(email);
+
+            if (!currentUser.getUserID().equals(userId)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("error", "You can only update your own profile"));
+            }
+
+            String imageUrl = cloudinaryService.uploadFile(file);
+            currentUser.setProfilePicture(imageUrl);
+            userService.updateUserProfile(userId, currentUser);
+
+            return ResponseEntity.ok(Map.of("url", imageUrl));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Failed to upload profile picture: " + e.getMessage()));
         }
     }
 

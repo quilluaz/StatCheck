@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL } from "../apiConfig";
 
 const api = axios.create({
-  baseURL: '/api/admin/library-rooms',
+  baseURL: `${API_URL}/api/admin/library-rooms`,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

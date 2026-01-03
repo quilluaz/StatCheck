@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
+import { API_URL } from "../services/apiConfig";
 
 const AuthContext = createContext();
 
@@ -27,8 +28,7 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      console.log('Checking auth status...');
-      const response = await fetch("/api/auth/verify-token", {
+      const response = await fetch(`${API_URL}/api/auth/verify-token`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -37,18 +37,14 @@ export function AuthProvider({ children }) {
         },
       });
       
-      console.log('Auth status response:', response.status);
       const data = await response.json();
-      console.log('Auth status data:', data);
 
       if (response.ok && data.valid) {
-        console.log('Setting user:', data);
         setUser({
           email: data.email,
           role: data.role
         });
       } else {
-        console.log('Clearing user state');
         setUser(null);
       }
     } catch (error) {
@@ -65,8 +61,7 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (credentials) => {
     try {
-      console.log('AuthContext: Attempting login...');
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,9 +70,7 @@ export function AuthProvider({ children }) {
         credentials: "include",
       });
 
-      console.log('AuthContext: Login response status:', response.status);
       const data = await response.json();
-      console.log('AuthContext: Login response data:', data);
 
       if (!response.ok) {
         throw new Error(data.message || data.error || "Login failed");
@@ -97,7 +90,7 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(async () => {
     try {
-      const response = await fetch("/api/auth/logout", {
+      const response = await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

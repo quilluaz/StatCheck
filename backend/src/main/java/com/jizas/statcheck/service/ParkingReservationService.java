@@ -8,6 +8,8 @@ import com.jizas.statcheck.repository.ParkingReservationRepository;
 import com.jizas.statcheck.repository.ParkingSpaceRepository;
 import com.jizas.statcheck.repository.UserRepository;
 import com.jizas.statcheck.repository.ParkingLotRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Service
 public class ParkingReservationService {
+    private static final Logger logger = LoggerFactory.getLogger(ParkingReservationService.class);
 
     @Autowired
     private ParkingReservationRepository parkingReservationRepository;
@@ -34,7 +37,7 @@ public class ParkingReservationService {
     @Transactional
     public ParkingReservationEntity createReservation(ParkingReservationEntity reservation) {
         // Debug logging
-        System.out.println("Received reservation data: " + reservation);
+        logger.info("Received reservation data: {}", reservation);
         
         if (reservation.getParkingSpaceEntity() == null || 
             reservation.getParkingSpaceEntity().getParkingSpaceId() == null) {

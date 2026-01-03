@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL } from "../apiConfig";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: `${API_URL}/api`,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -37,7 +38,6 @@ export const ParkingReservationAPI = {
 
   createReservation: async (reservationData) => {
     try {
-      console.log("Sending reservation data:", reservationData);
       // Construct the request payload
       const payload = {
         parkingSpaceEntity: {
@@ -51,7 +51,8 @@ export const ParkingReservationAPI = {
         status: "PENDING",
       };
 
-      console.log("Sending payload:", payload);
+
+
       const response = await api.post("/admin/parking-reservations", payload);
       return response.data;
     } catch (error) {
@@ -65,7 +66,6 @@ export const ParkingReservationAPI = {
 
   updateReservation: async (id, reservationData) => {
     try {
-      console.log("Updating reservation:", id, reservationData);
       const response = await api.put(`/admin/parking-reservations/${id}`, {
         parkingSpaceEntity: {
           parkingSpaceId: reservationData.parkingSpace.parkingSpaceId,

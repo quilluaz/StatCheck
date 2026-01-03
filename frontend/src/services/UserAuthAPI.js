@@ -1,3 +1,5 @@
+import { API_URL } from "./apiConfig";
+
 export class AuthError extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -28,7 +30,7 @@ export const signUp = async (userData) => {
       throw new AuthError("Password must be at least 6 characters long", 400);
     }
 
-    const response = await fetch("/api/auth/signup", {
+    const response = await fetch(`${API_URL}/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,8 +71,7 @@ export const signUp = async (userData) => {
 
 export const logIn = async (credentials) => {
   try {
-    console.log('Attempting login...'); // Debug log
-    const response = await fetch("/api/auth/login", {
+    const response = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +82,7 @@ export const logIn = async (credentials) => {
     });
 
     const data = await response.json();
-    console.log('Login response:', response.status, data); // Debug log
+
 
     if (!response.ok) {
       throw new AuthError(
@@ -99,7 +100,6 @@ export const logIn = async (credentials) => {
       redirectPath: data.role === "ADMIN" ? "/admin" : "/home",
     };
   } catch (error) {
-    console.error('Login error:', error); // Debug log
     if (error instanceof AuthError) {
       throw error;
     }
@@ -112,7 +112,7 @@ export const logIn = async (credentials) => {
   
 export const logOut = async () => {
   try {
-    const response = await fetch("/api/auth/logout", {
+    const response = await fetch(`${API_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

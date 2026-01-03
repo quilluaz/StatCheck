@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL } from "../apiConfig";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: `${API_URL}/api`,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -12,7 +13,6 @@ const api = axios.create({
 // Remove the token interceptor since we're using cookies
 api.interceptors.request.use(
   (config) => {
-    console.log('Making request with credentials');
     return config;
   },
   (error) => {

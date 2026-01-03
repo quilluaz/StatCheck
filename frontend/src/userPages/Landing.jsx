@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import polygridBg from "../assets/polygridBg.svg";
+// import polygridBg from "../assets/polygridBg.svg";
 import { signUp, logIn, AuthError } from "../services/UserAuthAPI";
 
 export default function LandingPage() {
@@ -89,7 +89,7 @@ export default function LandingPage() {
     <div
       className="w-full min-h-screen bg-cover bg-center"
       style={{
-        backgroundImage: `url(${polygridBg})`,
+        backgroundImage: `url("/images/wallpeps.png")`,
       }}>
       <div className="container mx-auto min-h-screen flex items-center justify-center px-4">
         <div className="bg-black bg-opacity-70 rounded-lg shadow-xl p-8 w-full max-w-md">
