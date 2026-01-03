@@ -44,6 +44,9 @@ public class UserController {
     @Value("${cookie.secure}")
     private boolean cookieSecure;
 
+    @Value("${cookie.same-site}")
+    private String cookieSameSite;
+
     @Autowired
     public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil, CookieUtil cookieUtil, CloudinaryService cloudinaryService) {
         this.userService = userService;
@@ -88,7 +91,7 @@ public class UserController {
                     .secure(cookieSecure)
                     .path("/")
                     .maxAge(jwtUtil.getExpirationTime() / 1000)
-                    .sameSite("Lax")
+                    .sameSite(cookieSameSite)
                     .build();
 
                 ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
@@ -96,7 +99,7 @@ public class UserController {
                     .secure(cookieSecure)
                     .path("/")
                     .maxAge(jwtUtil.getRefreshExpirationTime() / 1000)
-                    .sameSite("Lax")
+                    .sameSite(cookieSameSite)
                     .build();
 
                 return ResponseEntity.ok()

@@ -88,8 +88,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             logger.error("Cannot set user authentication: ", e);
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Authentication failed: " + e.getMessage());
+            // Don't fail the request, just don't set authentication
+            // This allows the request to proceed to the controller (which might be the login endpoint)
+            filterChain.doFilter(request, response);
         }
     }
 }
